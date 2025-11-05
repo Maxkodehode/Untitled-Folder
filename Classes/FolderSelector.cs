@@ -15,6 +15,10 @@ public static class FolderSelector
         {
             return SelectFolderLinux();
         }
+        else if (RuntimeInformation.IsOSPlatform(OSPlatform.OSX)) 
+        {
+            return SelectFolderMacOs();
+        }
         else
         {
             Console.WriteLine("Sorry mate, i don't support your OS");
@@ -68,6 +72,26 @@ public static class FolderSelector
             UseShellExecute = false,
         };
         return RunProcessAndGetOutput(psi);
+    }
+
+
+    private static string SelectFolderMacOs()
+    {
+    
+        string appleScript = 
+            "set folderPath to POSIX path of (choose folder with prompt \"Select a destination folder:\")\n" +
+            "write folderPath";
+
+        var psi = new ProcessStartInfo
+        {
+            FileName = "osascript",
+            Arguments = $"-e '{appleScript}'", // using "-e"so the entire applescript executes together
+            RedirectStandardOutput = true,
+            UseShellExecute = false,
+            CreateNoWindow = true
+        };
+        
+        return RunProcessAndGetOutput(psi); 
     }
 
 }
