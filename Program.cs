@@ -22,8 +22,14 @@ class Program
         }
     else
         {
-            Console.WriteLine("\n\nIf directory selection fails or is canceled, please ensure you have Zenity installed.\n\n" +
-        "Use the appropriate command for your Linux distribution:\n" +
+
+            Console.WriteLine("\n--- Directory Selection Status ---\n");
+            Console.WriteLine("Selection was canceled, or the Zenity dependency is missing.");
+
+
+            Console.WriteLine("\nIf you are certain you did not cancel, please install Zenity using the appropriate command for your Linux distribution:\n");
+            Console.WriteLine("Use the appropriate command for your Linux distribution:\n" +
+        
         "----------------------------------------------------\n" +
         "1. Debian/Ubuntu/Mint (APT):\n" +
         "   sudo apt update\n" +

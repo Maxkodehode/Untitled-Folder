@@ -4,7 +4,7 @@ using System.IO;
 public class FileSorter
 {
     private readonly string _sourcePath;
-    private readonly string _destinationDirectory;
+    private readonly string _destinationDirectory; 
 
     public FileSorter(string sourcePath, string newDirectory)
     {
