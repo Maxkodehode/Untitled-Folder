@@ -18,4 +18,4 @@ if there is i need to add, int i = 1; i++ fileName +"(" + (i) + ")"; fileName(i)
 
 I ended up adding a switch statement to group image files, text files, audio files and video files into their own respective directories.
 
-I also added a OS checker and it should now work on Windows.
+I also added a OS checker and it should now work on Windows and Mac.

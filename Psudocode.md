@@ -9,4 +9,4 @@ When both directories is selected i need to parse through the files and identify
 For each unique filetype it creates a new sub-directory with the name of the filetype
 
 I need to check if there are files with the same name in the sub-directory,
-if there is i need to add, int i = 1; i++ fileName +"(" + i + ")"; fileName(i)
+if there is i need to add, int i = 1; i++ fileName +"(" + (i) + ")"; fileName(i)

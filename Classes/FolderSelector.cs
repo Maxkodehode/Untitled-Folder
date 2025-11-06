@@ -85,7 +85,7 @@ public static class FolderSelector
         var psi = new ProcessStartInfo
         {
             FileName = "osascript",
-            Arguments = $"-e '{appleScript}'", // using "-e"so the entire applescript executes together
+            Arguments = "-s",
             RedirectStandardOutput = true,
             UseShellExecute = false,
             CreateNoWindow = true

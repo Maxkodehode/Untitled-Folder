@@ -49,6 +49,7 @@ public class FileSorter
                     case "PPT":
                     case "PPTX":
                     case "RFT":
+                    case "MD":
 
                         folderName = "DOCUMENTS";
                         break;
@@ -72,6 +73,42 @@ public class FileSorter
 
                         folderName = "AUDIO";
                         break;
+
+                    case "EXE":
+                    case "MSI":
+                    case "DEB":
+                    case "PKG":
+                    case "DMG":
+                        folderName = "INSTALLERS";
+                        break;
+
+                    case "OTF":
+                    case "TTF":
+                    case "WOFF":
+                    case "WOFF2":
+                    case "EOT":
+                    case "PFA":
+                    case "PFB":
+                    case "FON":
+                        folderName = "FONT_STYLE";
+                        break;
+
+                    case "CSS":
+                        folderName = "CODE/CSS";
+                        break;
+
+                    case "HTML":
+                        folderName = "CODE/HTML";
+                        break;
+
+                    case "JS":
+                        folderName = "CODE/JAVASCRIPT";
+                        break;
+
+                    case "JSON":
+                        folderName = "CODE/JSON";
+                        break;
+
 
                     default:
                         break;
