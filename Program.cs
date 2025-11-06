@@ -3,31 +3,37 @@ using System.Runtime.InteropServices;
 
 class Program
 {
+    // Main entry point of the application
     static void Main()
     {
-    string selectedPath = FolderSelector.SelectFolder();
-    string newDirectory = FolderSelector.SelectFolder();
+        // Prompt user to select source and destination folders
+    Console.WriteLine("Please select the source folder:");
+        string selectedPath = FolderSelector.SelectFolder();
+    
+    Console.WriteLine("Please select the destination folder:");
+        string newDirectory = FolderSelector.SelectFolder();
 
 
-
-        if (!string.IsNullOrEmpty(selectedPath) && !string.IsNullOrEmpty(newDirectory))
+    // Proceed only if both paths are valid
+    if (!string.IsNullOrEmpty(selectedPath) && !string.IsNullOrEmpty(newDirectory))
         {
-            Console.WriteLine($"\nSource Selected: {selectedPath}");
-            Console.WriteLine($"Destination Selected: {newDirectory}");
+        Console.WriteLine($"\nSource Selected: {selectedPath}");
+        Console.WriteLine($"Destination Selected: {newDirectory}");    
 
-            FileSorter sorter = new FileSorter(selectedPath, newDirectory);
-            Console.WriteLine($"Starting from the '{selectedPath}' to destination folder in '{newDirectory}'...");
-            sorter.SortFiles();
+        FileSorter sorter = new FileSorter(selectedPath, newDirectory);
+        Console.WriteLine($"Starting from the '{selectedPath}' to destination folder in '{newDirectory}'...");
+        sorter.SortFiles();    
         }
-
-        else
+    
+    else
         {
-            Console.WriteLine("\n--- Directory Selection Status ---\n");
-            Console.WriteLine("Selection was canceled, or the Zenity dependency is missing.");
+            // Inform user about cancellation or missing dependencies
+        Console.WriteLine("\n--- Directory Selection Status ---\n");
+        Console.WriteLine("Selection was canceled, or the Zenity dependency is missing.");
 
 
-            Console.WriteLine("\nIf you are certain you did not cancel, please install Zenity using the appropriate command for your Linux distribution:\n");
-            Console.WriteLine("Use the appropriate command for your Linux distribution:\n" +
+        Console.WriteLine("\nIf you are certain you did not cancel, please install Zenity using the appropriate command for your Linux distribution:\n");
+        Console.WriteLine("Use the appropriate command for your Linux distribution:\n" +
         
         "----------------------------------------------------\n" +
         "1. Debian/Ubuntu/Mint (APT):\n" +

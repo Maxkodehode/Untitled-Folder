@@ -4,6 +4,7 @@ using System.Runtime.InteropServices;
 
 public static class FolderSelector
 {
+    // Main method to select folder based on OS
     public static string SelectFolder()
     {
         //fancy OS checker
@@ -26,7 +27,7 @@ public static class FolderSelector
         }
     }
 
-// Because it is nice and DRY.
+// Recive the output from the process and return it as a string.
     private static string RunProcessAndGetOutput(ProcessStartInfo psi)
     {
         using (var process = Process.Start(psi)!)
@@ -61,7 +62,7 @@ public static class FolderSelector
     }
 
 
-
+// Using Zenity for Linux folder selection
     private static string SelectFolderLinux()
     {
         var psi = new ProcessStartInfo
@@ -74,7 +75,7 @@ public static class FolderSelector
         return RunProcessAndGetOutput(psi);
     }
 
-
+// Using AppleScript for macOS folder selection
     private static string SelectFolderMacOs()
     {
     

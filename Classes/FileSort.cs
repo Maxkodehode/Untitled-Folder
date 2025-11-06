@@ -3,15 +3,18 @@ using System.IO;
 
 public class FileSorter
 {
+    // Source and destination paths
     private readonly string _sourcePath;
     private readonly string _destinationDirectory; 
 
     public FileSorter(string sourcePath, string newDirectory)
     {
+        // Initializing source and destination paths
         _sourcePath = sourcePath; 
         _destinationDirectory = newDirectory;
     }
 
+// Main method to sort files into categorized folders
     public void SortFiles()
     {
         try
@@ -22,14 +25,14 @@ public class FileSorter
             {
                 string extension = Path.GetExtension(filePath);
 
-                // If statement so we ignore files with no extension, folders.
+                // Skip files without an extension
                 if (string.IsNullOrEmpty(extension)) continue;
 
                 string folderName = extension.TrimStart('.').ToUpper();
 
 
 
-                //---Grouping similar filetypes together.
+                //--- Categorizing extensions into broader folder names
                 switch (folderName)
                 {
                     case "JPG":
@@ -79,6 +82,7 @@ public class FileSorter
                     case "DEB":
                     case "PKG":
                     case "DMG":
+
                         folderName = "INSTALLERS";
                         break;
 
@@ -109,11 +113,10 @@ public class FileSorter
                         folderName = "CODE/JSON";
                         break;
 
-
                     default:
                         break;
                 }
-                
+
 
 
 
@@ -124,9 +127,9 @@ public class FileSorter
                 {
                     Directory.CreateDirectory(destinationDir);
                 }
-                
 
-                
+
+
                 //Getting the file name and checking for duplicate names and append a number to it, e.g. filename(2)
                 string fileName = Path.GetFileName(filePath);
                 string baseFileName = Path.GetFileNameWithoutExtension(filePath);
@@ -143,7 +146,7 @@ public class FileSorter
 
 
 
-            //Moving the files into their designated directories
+                //Moving the files into their designated directories
                 File.Move(filePath, destinationPath);
             }
         }
