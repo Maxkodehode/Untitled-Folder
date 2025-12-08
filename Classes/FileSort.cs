@@ -5,16 +5,16 @@ public class FileSorter
 {
     // Source and destination paths
     private readonly string _sourcePath;
-    private readonly string _destinationDirectory; 
+    private readonly string _destinationDirectory;
 
     public FileSorter(string sourcePath, string newDirectory)
     {
         // Initializing source and destination paths
-        _sourcePath = sourcePath; 
+        _sourcePath = sourcePath;
         _destinationDirectory = newDirectory;
     }
 
-// Main method to sort files into categorized folders
+    // Main method to sort files into categorized folders
     public void SortFiles()
     {
         try
@@ -23,14 +23,17 @@ public class FileSorter
 
             foreach (string filePath in filesToProcess)
             {
+                string fileNameWithoutExtension = Path.GetFileNameWithoutExtension(filePath)
+                    .Replace(" ", "_");
+                string timestamp = DateTime.Now.ToString("'_'yyyy-MM-dd'_'HH-mm-ss");
                 string extension = Path.GetExtension(filePath);
+                string newFileName = $"{fileNameWithoutExtension}{timestamp}{extension}";
 
                 // Skip files without an extension
-                if (string.IsNullOrEmpty(extension)) continue;
+                if (string.IsNullOrEmpty(newFileName))
+                    continue;
 
                 string folderName = extension.TrimStart('.').ToUpper();
-
-
 
                 //--- Categorizing extensions into broader folder names
                 switch (folderName)
@@ -39,8 +42,9 @@ public class FileSorter
                     case "WEBP":
                     case "PNG":
                     case "JPEG":
+                    case "AVIF":
 
-                        folderName = "IMAGES";
+                        folderName = $"IMAGES/{folderName}";
                         break;
 
                     case "PDF":
@@ -53,8 +57,9 @@ public class FileSorter
                     case "PPTX":
                     case "RFT":
                     case "MD":
+                    case "EPUB":
 
-                        folderName = "DOCUMENTS";
+                        folderName = $"DOCUMENTS/{folderName}";
                         break;
 
                     case "MP4":
@@ -117,9 +122,6 @@ public class FileSorter
                         break;
                 }
 
-
-
-
                 //Creating the path and the sub-directory.
                 string destinationDir = Path.Combine(_destinationDirectory, folderName);
 
@@ -128,23 +130,18 @@ public class FileSorter
                     Directory.CreateDirectory(destinationDir);
                 }
 
-
-
                 //Getting the file name and checking for duplicate names and append a number to it, e.g. filename(2)
-                string fileName = Path.GetFileName(filePath);
-                string baseFileName = Path.GetFileNameWithoutExtension(filePath);
 
-                string destinationPath = Path.Combine(destinationDir, fileName);
+                string destinationPath = Path.Combine(destinationDir, newFileName);
                 int counter = 1;
 
                 while (File.Exists(destinationPath))
-                {
-                    string newFileName = $"{baseFileName}({counter}){extension}";
-                    destinationPath = Path.Combine(destinationDir, newFileName);
+                { //{fileNameWithoutExtension}{timestamp}{extension}
+                    string newNewFileName =
+                        $"{fileNameWithoutExtension}{timestamp}({counter}){extension}";
+                    destinationPath = Path.Combine(destinationDir, newNewFileName);
                     counter++;
                 }
-
-
 
                 //Moving the files into their designated directories
                 File.Move(filePath, destinationPath);

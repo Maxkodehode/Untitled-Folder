@@ -16,7 +16,7 @@ public static class FolderSelector
         {
             return SelectFolderLinux();
         }
-        else if (RuntimeInformation.IsOSPlatform(OSPlatform.OSX)) 
+        else if (RuntimeInformation.IsOSPlatform(OSPlatform.OSX))
         {
             return SelectFolderMacOs();
         }
@@ -27,7 +27,7 @@ public static class FolderSelector
         }
     }
 
-// Recive the output from the process and return it as a string.
+    // Recive the output from the process and return it as a string.
     private static string RunProcessAndGetOutput(ProcessStartInfo psi)
     {
         using (var process = Process.Start(psi)!)
@@ -38,16 +38,15 @@ public static class FolderSelector
         }
     }
 
-
-        private static string SelectFolderWindows()
+    private static string SelectFolderWindows()
     {
         // PowerShell command to launch the native FolderBrowserDialog
-        string powershellCommand = 
-            "Add-Type -AssemblyName System.Windows.Forms; " +
-            "$browser = New-Object System.Windows.Forms.FolderBrowserDialog; " +
-            "$browser.Description = 'Select a destination folder:'; " +
-            "$null = $browser.ShowDialog(); " +
-            "Write-Host $browser.SelectedPath";
+        string powershellCommand =
+            "Add-Type -AssemblyName System.Windows.Forms; "
+            + "$browser = New-Object System.Windows.Forms.FolderBrowserDialog; "
+            + "$browser.Description = 'Select a destination folder:'; "
+            + "$null = $browser.ShowDialog(); "
+            + "Write-Host $browser.SelectedPath";
 
         var psi = new ProcessStartInfo
         {
@@ -55,14 +54,13 @@ public static class FolderSelector
             Arguments = $"-Command \"{powershellCommand}\"",
             RedirectStandardOutput = true,
             UseShellExecute = false,
-            CreateNoWindow = true
+            CreateNoWindow = true,
         };
-        
+
         return RunProcessAndGetOutput(psi);
     }
 
-
-// Using Zenity for Linux folder selection
+    // Using Zenity for Linux folder selection
     private static string SelectFolderLinux()
     {
         var psi = new ProcessStartInfo
@@ -75,27 +73,22 @@ public static class FolderSelector
         return RunProcessAndGetOutput(psi);
     }
 
-// Using AppleScript for macOS folder selection
+    // Using AppleScript for macOS folder selection
     private static string SelectFolderMacOs()
     {
-    
-        string appleScript = 
-            "set folderPath to POSIX path of (choose folder with prompt \"Select a destination folder:\")\n" +
-            "write folderPath";
+        string appleScript =
+            "set folderPath to POSIX path of (choose folder with prompt \"Select a destination folder:\")\n"
+            + "write folderPath";
 
         var psi = new ProcessStartInfo
         {
             FileName = "osascript",
-            Arguments = "-s",
+            Arguments = appleScript,
             RedirectStandardOutput = true,
             UseShellExecute = false,
-            CreateNoWindow = true
+            CreateNoWindow = true,
         };
-        
-        return RunProcessAndGetOutput(psi); 
+
+        return RunProcessAndGetOutput(psi);
     }
-
 }
-
-
-

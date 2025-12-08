@@ -10,3 +10,7 @@ For each unique filetype it creates a new sub-directory with the name of the fil
 
 I need to check if there are files with the same name in the sub-directory,
 if there is i need to add, int i = 1; i++ fileName +"(" + (i) + ")"; fileName(i)
+
+
+Rename files with date and remove invalid whitespace
+
